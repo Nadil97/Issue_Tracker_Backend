@@ -1,18 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Colors - Deep Premium Dark Theme */
-  --bg-main: #0a0c10;
-  --bg-card: #151921;
-  --bg-card-hover: #1c222d;
-  --bg-navbar: rgba(13, 17, 23, 0.85);
+  /* Shared Layout Tokens */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* Shared Brand Tokens */
   --primary: #6366f1;
   --primary-hover: #4f46e5;
   --primary-glow: rgba(99, 102, 241, 0.15);
-  
-  --secondary: #334155;
-  --secondary-hover: #475569;
   
   --success: #10b981;
   --success-bg: rgba(16, 185, 129, 0.1);
@@ -22,6 +24,16 @@
   --warning-bg: rgba(245, 158, 11, 0.1);
   --info: #3b82f6;
   --info-bg: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme='dark'] {
+  --bg-main: #0a0c10;
+  --bg-card: #151921;
+  --bg-card-hover: #1c222d;
+  --bg-navbar: rgba(13, 17, 23, 0.85);
+
+  --secondary: #334155;
+  --secondary-hover: #475569;
 
   --text-main: #f1f5f9;
   --text-dim: #94a3b8;
@@ -29,15 +41,31 @@
   
   --border-main: #2d3748;
   --border-light: #4a5568;
+
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  --input-bg: rgba(255, 255, 255, 0.03);
+  --navbar-user-bg: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='light'] {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --bg-navbar: rgba(255, 255, 255, 0.9);
+
+  --secondary: #e2e8f0;
+  --secondary-hover: #cbd5e1;
+
+  --text-main: #0f172a;
+  --text-dim: #475569;
+  --text-muted: #94a3b8;
   
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
-  
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --border-main: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  --input-bg: rgba(0, 0, 0, 0.02);
+  --navbar-user-bg: rgba(0, 0, 0, 0.03);
 }
 
 * {
@@ -53,6 +81,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4 {
@@ -169,11 +198,38 @@ button, input, select, textarea {
   box-shadow: 0 0 10px var(--primary);
 }
 
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.theme-toggle {
+  background: var(--navbar-user-bg);
+  border: 1px solid var(--border-main);
+  color: var(--text-dim);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-card-hover);
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: rotate(15deg);
+}
+
 .navbar-user {
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--navbar-user-bg);
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-main);

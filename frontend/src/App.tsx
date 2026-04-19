@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
+import { ThemeProvider } from './hooks/useTheme';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { Navbar } from './components/layout/Navbar';
 
@@ -22,10 +23,6 @@ function AppContent() {
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
-        <Route element={<div className="layout-with-navbar"><Navbar /><main className="main-content"><Navigate to="/dashboard" replace /></main></div>}>
-          {/* This is a bit complex for a simple layout, let's refine */}
-        </Route>
-        
         {/* Simpler layout approach */}
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<><Navbar /><main className="main-content"><DashboardPage /></main></>} />
@@ -44,9 +41,11 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   );
 }
