@@ -49,7 +49,12 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <StatsCards stats={stats} loading={loading && !stats} />
+      <StatsCards 
+        stats={stats} 
+        loading={loading && !stats} 
+        activeStatus={filters.status}
+        onStatusClick={(status) => updateFilters({ status: status as any })}
+      />
 
       <section className="issues-section">
         <IssueFiltersBar 

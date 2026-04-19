@@ -131,6 +131,7 @@ button, input, select, textarea {
   font-weight: 700;
   background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -313,6 +314,33 @@ button, input, select, textarea {
   color: var(--text-muted);
 }
 
+.stat-card.clickable {
+  cursor: pointer;
+}
+
+.stat-card.active {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.stat-active-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
 .stat-bar-track {
   position: absolute;
   bottom: 0;
@@ -322,36 +350,158 @@ button, input, select, textarea {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.stat-bar-fill {
-  height: 100%;
-  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Issue Flow */
-.filters-bar {
+/* Filters Container */
+.filters-container {
   background: var(--bg-card);
-  padding: 1.25rem;
+  padding: 2rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-main);
   margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
 }
 
-.filters-row {
+.search-section {
+  margin-bottom: 2rem;
+}
+
+.search-bar-primary {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-input-large {
+  flex: 1;
+}
+
+.search-input-large input {
+  font-size: 1.1rem;
+  padding: 1rem 1rem 1rem 3.25rem;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.result-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-glow);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  min-width: 100px;
+}
+
+.count-badge {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1;
+  font-family: 'Outfit', sans-serif;
+}
+
+.count-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.filters-inline {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+}
+
+.filter-group, .sort-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-main);
+}
+
+.filter-icon {
+  color: var(--text-muted);
+}
+
+.filter-select-minimal {
+  border: none !important;
+  background: transparent !important;
+  padding: 0.5rem 0.5rem 0.5rem 0 !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  min-width: 130px;
+}
+
+.filter-select-minimal:focus {
+  box-shadow: none !important;
+}
+
+.clear-all-btn {
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+}
+
+.active-chips-row {
+  margin-top: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  align-items: flex-end;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-main);
 }
 
-.search-wrapper {
-  flex: 2;
-  min-width: 250px;
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-glow);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 0.35rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  animation: slideIn 0.2s ease-out;
 }
 
-.filters-count {
-  margin-top: 1rem;
-  font-size: 0.85rem;
+@keyframes slideIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.chip-label {
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.chip-value {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.chip-remove {
+  background: none;
+  border: none;
   color: var(--text-muted);
+  display: flex;
+  cursor: pointer;
+  padding: 0.1rem;
+}
+
+.chip-remove:hover {
+  color: var(--danger);
 }
 
 /* Issue Card */
