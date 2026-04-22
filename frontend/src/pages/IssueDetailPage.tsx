@@ -19,6 +19,15 @@ export default function IssueDetailPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showResolveModal, setShowResolveModal] = useState(false);
 
+  const userJson = localStorage.getItem('user');
+  const currentUser = userJson ? JSON.parse(userJson) : null;
+  const currentUserId = currentUser?._id;
+
+  const isOwner = issue?.user?._id === currentUserId;
+  const isAssignee = issue?.assignees?.some(a => a._id === currentUserId);
+  const canEdit = isOwner || isAssignee;
+  const canDelete = isOwner;
+
   if (loading) return <div className="page-loading"><Spinner size="lg" text="Loading issue details..." /></div>;
   if (error || !issue) return (
     <div className="page-error">
@@ -54,7 +63,7 @@ export default function IssueDetailPage() {
           Back
         </Button>
         <div className="detail-actions">
-          {issue.status !== 'Resolved' && (
+          {issue.status !== 'Resolved' && canEdit && (
             <Button 
               variant="success" 
               onClick={() => setShowResolveModal(true)} 
@@ -63,12 +72,16 @@ export default function IssueDetailPage() {
               Mark as Resolved
             </Button>
           )}
-          <Link to={`/issues/${issue._id}/edit`}>
-            <Button variant="secondary" icon={<Edit size={18} />}>Edit</Button>
-          </Link>
-          <Button variant="danger" onClick={() => setShowDeleteModal(true)} icon={<Trash2 size={18} />}>
-            Delete
-          </Button>
+          {canEdit && (
+            <Link to={`/issues/${issue._id}/edit`}>
+              <Button variant="secondary" icon={<Edit size={18} />}>Edit</Button>
+            </Link>
+          )}
+          {canDelete && (
+            <Button variant="danger" onClick={() => setShowDeleteModal(true)} icon={<Trash2 size={18} />}>
+              Delete
+            </Button>
+          )}
         </div>
       </div>
 

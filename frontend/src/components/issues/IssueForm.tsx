@@ -3,6 +3,7 @@ import type { IssueFormData, Issue, User } from '../../types';
 import { userService } from '../../services/userService';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
+import { MultiSelect } from '../ui/MultiSelect';
 import { Button } from '../ui/Button';
 import { STATUS_OPTIONS, PRIORITY_OPTIONS } from '../../utils/constants';
 import { AlertCircle, Save, X } from 'lucide-react';
@@ -92,18 +93,13 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
               onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
               disabled={loading}
             />
-            <Select
-              id="assignees"
+            <MultiSelect
               label="Assign To (Multiple)"
-              multiple
-              className="h-auto py-2"
               options={users.map(u => ({ label: u.name, value: u._id }))}
-              value={formData.assignees as any}
-              onChange={(e) => {
-                const values = Array.from(e.target.selectedOptions, option => option.value);
-                setFormData({ ...formData, assignees: values });
-              }}
+              value={formData.assignees || []}
+              onChange={(values) => setFormData({ ...formData, assignees: values })}
               disabled={loading}
+              placeholder="Select team members..."
             />
           </div>
         </div>
