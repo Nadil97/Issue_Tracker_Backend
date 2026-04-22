@@ -9,9 +9,6 @@ const generateToken = (id) => {
   });
 };
 
-// @desc    Register new user
-// @route   POST /api/auth/register
-// @access  Public
 const registerUser = async (req, res, next) => {
   try {
     const schema = Joi.object({
@@ -55,9 +52,6 @@ const registerUser = async (req, res, next) => {
   }
 };
 
-// @desc    Authenticate a user
-// @route   POST /api/auth/login
-// @access  Public
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;

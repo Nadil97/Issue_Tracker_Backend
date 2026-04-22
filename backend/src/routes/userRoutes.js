@@ -4,9 +4,6 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-// @desc    Get all users
-// @route   GET /api/users
-// @access  Private
 router.get('/', protect, async (req, res, next) => {
   try {
     const users = await User.find().select('name email');

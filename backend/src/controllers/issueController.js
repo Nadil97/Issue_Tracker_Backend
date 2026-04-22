@@ -1,9 +1,6 @@
 const Issue = require('../models/Issue');
 const Joi = require('joi');
 
-// @desc    Get all issues
-// @route   GET /api/issues
-// @access  Private
 const getIssues = async (req, res, next) => {
   try {
     let query;
@@ -20,10 +17,8 @@ const getIssues = async (req, res, next) => {
     // Create query string
     let queryStr = JSON.stringify(reqQuery);
 
-    // Create operators ($gt, $gte, etc)
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
 
-    // Finding resource
     query = Issue.find(JSON.parse(queryStr)).populate('user', 'name email').populate('assignees', 'name email');
 
     // Search by title
@@ -85,9 +80,6 @@ const getIssues = async (req, res, next) => {
   }
 };
 
-// @desc    Get single issue
-// @route   GET /api/issues/:id
-// @access  Private
 const getIssue = async (req, res, next) => {
   try {
     const issue = await Issue.findById(req.params.id).populate('user', 'name email').populate('assignees', 'name email');
@@ -102,9 +94,6 @@ const getIssue = async (req, res, next) => {
   }
 };
 
-// @desc    Create new issue
-// @route   POST /api/issues
-// @access  Private
 const createIssue = async (req, res, next) => {
   try {
     const schema = Joi.object({
@@ -131,9 +120,6 @@ const createIssue = async (req, res, next) => {
   }
 };
 
-// @desc    Update issue
-// @route   PUT /api/issues/:id
-// @access  Private
 const updateIssue = async (req, res, next) => {
   try {
     let issue = await Issue.findById(req.params.id);
@@ -159,9 +145,6 @@ const updateIssue = async (req, res, next) => {
   }
 };
 
-// @desc    Delete issue
-// @route   DELETE /api/issues/:id
-// @access  Private
 const deleteIssue = async (req, res, next) => {
   try {
     const issue = await Issue.findById(req.params.id);
@@ -183,9 +166,6 @@ const deleteIssue = async (req, res, next) => {
   }
 };
 
-// @desc    Get dashboard stats
-// @route   GET /api/issues/stats
-// @access  Private
 const getIssueStats = async (req, res, next) => {
   try {
     const stats = await Issue.aggregate([
