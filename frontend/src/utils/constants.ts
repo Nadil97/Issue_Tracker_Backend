@@ -1,6 +1,8 @@
 import type { IssueStatus, IssuePriority } from '../types';
 
-export const API_BASE_URL = 'http://localhost:3000/api';
+export const API_BASE_URL = import.meta.env.PROD 
+  ? '/api' 
+  : 'http://localhost:5000/api';
 
 export const STATUS_OPTIONS: IssueStatus[] = ['Open', 'In Progress', 'Resolved'];
 export const PRIORITY_OPTIONS: IssuePriority[] = ['Low', 'Medium', 'High'];
