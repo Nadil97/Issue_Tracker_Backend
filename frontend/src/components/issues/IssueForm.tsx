@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import type { IssueFormData, Issue } from '../../types';
+import type { IssueFormData, Issue, User } from '../../types';
+import { userService } from '../../services/userService';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
+import { MultiSelect } from '../ui/MultiSelect';
 import { Button } from '../ui/Button';
 import { STATUS_OPTIONS, PRIORITY_OPTIONS } from '../../utils/constants';
 import { AlertCircle, Save, X } from 'lucide-react';
@@ -19,7 +21,14 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
     description: '',
     status: 'Open',
     priority: 'Medium',
+    assignees: [],
   });
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    userService.getUsers().then(setUsers).catch(console.error);
+  }, []);
 
   const [errors, setErrors] = useState<Partial<Record<keyof IssueFormData, string>>>({});
 
@@ -30,6 +39,7 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
         description: initialData.description,
         status: initialData.status,
         priority: initialData.priority,
+        assignees: initialData.assignees?.map(a => a._id) || [],
       });
     }
   }, [initialData]);
@@ -82,6 +92,14 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
               value={formData.priority}
               onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
               disabled={loading}
+            />
+            <MultiSelect
+              label="Assign To (Multiple)"
+              options={users.map(u => ({ label: u.name, value: u._id }))}
+              value={formData.assignees || []}
+              onChange={(values) => setFormData({ ...formData, assignees: values })}
+              disabled={loading}
+              placeholder="Select team members..."
             />
           </div>
         </div>

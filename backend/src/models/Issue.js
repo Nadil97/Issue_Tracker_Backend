@@ -28,6 +28,12 @@ const issueSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    assignees: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,
