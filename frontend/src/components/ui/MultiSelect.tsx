@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, X, Check, User } from 'lucide-react';
+import { ChevronDown, X, Check } from 'lucide-react';
 
 interface Option {
   label: string;

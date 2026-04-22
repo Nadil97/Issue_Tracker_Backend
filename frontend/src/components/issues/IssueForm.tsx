@@ -6,7 +6,7 @@ import { Select } from '../ui/Select';
 import { MultiSelect } from '../ui/MultiSelect';
 import { Button } from '../ui/Button';
 import { STATUS_OPTIONS, PRIORITY_OPTIONS } from '../../utils/constants';
-import { AlertCircle, Save, X } from 'lucide-react';
+import { Save, X } from 'lucide-react';
 
 interface IssueFormProps {
   initialData?: Issue;

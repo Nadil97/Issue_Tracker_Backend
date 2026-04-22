@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import type { Issue } from '../../types';
 import { StatusBadge, PriorityBadge } from '../ui/Badge';
 import { formatRelativeDate, truncate } from '../../utils/helpers';
-import { ChevronRight, MessageSquare, Clock } from 'lucide-react';
+import { ChevronRight, Clock } from 'lucide-react';
 
 interface IssueCardProps {
   issue: Issue;

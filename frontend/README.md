@@ -1,73 +1,67 @@
-# React + TypeScript + Vite
+# Issue Tracker - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional, responsive, and feature-rich frontend for the Issue Tracking System, built with **React**, **TypeScript**, and **Vite**.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- **Dashboard**: High-level overview of issue statistics and real-time updates.
+- **Issue Management**: Create, edit, and delete issues with ease.
+- **Advanced Assignments**: Assign multiple team members to a single issue using a custom, creative multi-select UI.
+- **Permissions-Aware**: Smart UI that hides/shows actions based on user roles (Creator vs. Assignee).
+- **Responsive Design**: Fully optimized for desktop and mobile devices.
+- **Clean Architecture**: Follows best practices with reusable UI components and specialized services.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Technology Stack
+- **Framework**: [React 18](https://reactjs.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Routing**: [React Router DOM](https://reactrouter.com/)
+- **HTTP Client**: [Axios](https://axios-http.com/)
 
-## React Compiler
+## 📦 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-## Expanding the ESLint configuration
+### Installation
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Configuration
+The application uses a centralized constants file for API configuration.
+- Open `src/utils/constants.ts`.
+- Ensure `API_BASE_URL` points to your backend (currently set to the production Netlify endpoint).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Running Locally
+To start the development server:
+```bash
+npm run dev
 ```
+The app will be available at `http://localhost:5173`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🏗️ Production Build
+To create an optimized production build:
+```bash
+npm run build
 ```
+The output will be in the `dist` folder, ready to be deployed to Netlify, Vercel, or any static hosting provider.
+
+## 📂 Project Structure
+- `src/components/ui`: Reusable UI elements (Buttons, Inputs, Modals, MultiSelect).
+- `src/components/issues`: Issue-specific components like forms and lists.
+- `src/pages`: Main page components for routing.
+- `src/services`: API communication services.
+- `src/hooks`: Custom React hooks for business logic.
+- `src/utils`: Helper functions and global constants.
+
+## 🤝 Contribution
+1. Create a new branch for your feature.
+2. Ensure code follows the established ESLint and Prettier rules.
+3. Submit a Pull Request for review.
