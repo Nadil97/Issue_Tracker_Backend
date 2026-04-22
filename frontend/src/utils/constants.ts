@@ -1,7 +1,7 @@
 import type { IssueStatus, IssuePriority } from '../types';
 
 export const API_BASE_URL = import.meta.env.PROD 
-  ? '/api' 
+  ? 'https://adorable-dusk-3397e1.netlify.app/api' 
   : 'http://localhost:5000/api';
 
 export const STATUS_OPTIONS: IssueStatus[] = ['Open', 'In Progress', 'Resolved'];

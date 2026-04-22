@@ -2,8 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
-const connectDB = require('../../config/db');
-const errorHandler = require('../../middleware/errorMiddleware');
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/errorMiddleware');
 
 dotenv.config();
 connectDB();
@@ -19,9 +19,9 @@ if (process.env.NODE_ENV === 'development') {
 // Enable CORS
 app.use(cors());
 
-app.use('/api/auth', require('../../routes/authRoutes'));
-app.use('/api/users', require('../../routes/userRoutes'));
-app.use('/api/issues', require('../../routes/issueRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/issues', require('./routes/issueRoutes'));
 
 app.use(errorHandler);
 
