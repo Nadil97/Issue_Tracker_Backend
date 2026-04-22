@@ -105,6 +105,17 @@ export default function IssueDetailPage() {
                 </div>
               </div>
               <div className="info-item">
+                <User size={16} />
+                <div>
+                  <label>Assignees</label>
+                  <span>
+                    {issue.assignees && issue.assignees.length > 0
+                      ? issue.assignees.map(a => a.name).join(', ')
+                      : 'Unassigned'}
+                  </span>
+                </div>
+              </div>
+              <div className="info-item">
                 <Calendar size={16} />
                 <div>
                   <label>Created on</label>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { IssueFormData, Issue } from '../../types';
+import type { IssueFormData, Issue, User } from '../../types';
+import { userService } from '../../services/userService';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
@@ -19,7 +20,14 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
     description: '',
     status: 'Open',
     priority: 'Medium',
+    assignees: [],
   });
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    userService.getUsers().then(setUsers).catch(console.error);
+  }, []);
 
   const [errors, setErrors] = useState<Partial<Record<keyof IssueFormData, string>>>({});
 
@@ -30,6 +38,7 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
         description: initialData.description,
         status: initialData.status,
         priority: initialData.priority,
+        assignees: initialData.assignees?.map(a => a._id) || [],
       });
     }
   }, [initialData]);
@@ -81,6 +90,19 @@ export function IssueForm({ initialData, onSubmit, onCancel, loading }: IssueFor
               options={PRIORITY_OPTIONS.map(p => ({ label: p, value: p }))}
               value={formData.priority}
               onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
+              disabled={loading}
+            />
+            <Select
+              id="assignees"
+              label="Assign To (Multiple)"
+              multiple
+              className="h-auto py-2"
+              options={users.map(u => ({ label: u.name, value: u._id }))}
+              value={formData.assignees as any}
+              onChange={(e) => {
+                const values = Array.from(e.target.selectedOptions, option => option.value);
+                setFormData({ ...formData, assignees: values });
+              }}
               disabled={loading}
             />
           </div>

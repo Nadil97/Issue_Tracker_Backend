@@ -19,6 +19,11 @@ export interface Issue {
     name: string;
     email: string;
   };
+  assignees?: {
+    _id: string;
+    name: string;
+    email: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
@@ -46,6 +51,7 @@ export interface IssueFormData {
   description: string;
   status: IssueStatus;
   priority: IssuePriority;
+  assignees?: string[];
 }
 
 export interface AuthCredentials {

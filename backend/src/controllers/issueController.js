@@ -24,7 +24,7 @@ const getIssues = async (req, res, next) => {
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
 
     // Finding resource
-    query = Issue.find(JSON.parse(queryStr)).populate('user', 'name email');
+    query = Issue.find(JSON.parse(queryStr)).populate('user', 'name email').populate('assignees', 'name email');
 
     // Search by title
     if (req.query.search) {
@@ -90,7 +90,7 @@ const getIssues = async (req, res, next) => {
 // @access  Private
 const getIssue = async (req, res, next) => {
   try {
-    const issue = await Issue.findById(req.params.id).populate('user', 'name email');
+    const issue = await Issue.findById(req.params.id).populate('user', 'name email').populate('assignees', 'name email');
 
     if (!issue) {
       return res.status(404).json({ success: false, error: 'Issue not found' });
@@ -112,6 +112,7 @@ const createIssue = async (req, res, next) => {
       description: Joi.string().max(500).required(),
       status: Joi.string().valid('Open', 'In Progress', 'Resolved'),
       priority: Joi.string().valid('Low', 'Medium', 'High'),
+      assignees: Joi.array().items(Joi.string()),
     });
 
     const { error } = schema.validate(req.body);
@@ -141,8 +142,9 @@ const updateIssue = async (req, res, next) => {
       return res.status(404).json({ success: false, error: 'Issue not found' });
     }
 
-    // Make sure user is issue owner
-    if (issue.user.toString() !== req.user.id) {
+    // Make sure user is issue owner or an assignee
+    const isAssignee = issue.assignees && issue.assignees.some(a => a.toString() === req.user.id);
+    if (issue.user.toString() !== req.user.id && !isAssignee) {
       return res.status(401).json({ success: false, error: 'Not authorized to update this issue' });
     }
 
